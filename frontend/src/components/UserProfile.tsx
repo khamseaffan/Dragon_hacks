@@ -14,7 +14,7 @@ export default function UserProfile() {
         <h2>User Profile</h2>
         {user && (
             <>
-                <img src={user.picture} alt={user.name} />
+                {/* <img src={user.picture} alt={user.name} /> */}
                 <p>Name: {user.name}</p>
                 <p>Email: {user.email}</p>
             </>
