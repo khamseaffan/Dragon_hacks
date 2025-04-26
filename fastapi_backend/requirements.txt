@@ -1,0 +1,13 @@
+fastapi[all]
+uvicorn[standard]
+beanie
+pydantic
+python-dotenv
+python-jose[cryptography]
+requests
+httpx # Preferred for async JWKS fetching
+cachetools # For caching JWKS
+pymongo
+# httpx # Uncomment if using async Plaid calls
+# plaid-python # Add later if needed
+# auth0-python # Add later if needed
