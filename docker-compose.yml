@@ -1,0 +1,29 @@
+services:
+  mongodb:
+    image: mongo:latest
+    container_name: dragonhacks-mongo
+    restart: always
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_DATABASE: dragonhacks
+    volumes:
+      - mongo_data:/data/db
+
+  fastapi:
+    build:
+      context: ./fastapi_backend
+    container_name: dragonhacks-backend
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+    volumes:
+      - ./fastapi_backend/app:/app/app
+    ports:
+      - "8000:8000"
+    environment:
+      DATABASE_URL: mongodb://mongodb:27017/dragonhacks
+      # ...other env vars, e.g., AUTH0_DOMAIN, JWT_SECRET_KEY, etc.
+    depends_on:
+      - mongodb
+
+volumes:
+  mongo_data:
