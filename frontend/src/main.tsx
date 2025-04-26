@@ -11,7 +11,7 @@ createRoot(document.getElementById("root")!).render(
     clientId={credentials.clientId}
     authorizationParams={{
       redirect_uri: window.location.origin,
-      audience: credentials.apiIdentifier,
+      audience: credentials.audience,
     }}
   >
     <StrictMode>

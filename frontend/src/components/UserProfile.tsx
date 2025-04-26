@@ -8,6 +8,9 @@ export default function UserProfile() {
     if (!isAuthenticated) {
         return <div>Please log in to see your profile.</div>;
     }
+    console.log("hello");
+    console.log(user?.name || "No name");
+    console.log(user?.email);
 
     return (
     <div>
