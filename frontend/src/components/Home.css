@@ -1,3 +1,133 @@
+/* Home.css
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    background-color: #F7F7FF;
+    color: #070600;
+}
+
+.home {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.header {
+    text-align: center;
+    padding: 20px 0;
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #070600;
+}
+
+.subheader {
+    text-align: center;
+    font-size: 1.2rem;
+    color: #279AF1;
+    margin-bottom: 30px;
+}
+
+.navbar {
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.navbar--button:hover {
+    /* background-color: #1E7ACB;
+}
+
+.card {
+    background-color: #FFFFFF;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin: 20px 0;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+/* }
+
+.card-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #070600;
+    margin-bottom: 10px;
+}
+
+.card-description {
+    font-size: 1rem;
+    color: #070600;
+    line-height: 1.5;
+}
+
+.status {
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    color: #FFFFFF;
+}
+
+.status-green {
+    background-color: #8CD867;
+}
+
+.status-red {
+    background-color: #EA526F;
+}
+
+.content {
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.08);
+    padding: 30px;
+}
+
+#income-graph {
+    margin-top: 30px;
+    min-height: 200px;
+    background: #F0F4F8;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+}
+
+.button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #279AF1;
+    color: #FFFFFF;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.button:hover {
+    background-color: #1E7ACB;
+}
+
+.footer {
+    text-align: center;
+    padding: 20px 0;
+    font-size: 0.9rem;
+    color: #070600;
+    border-top: 1px solid #E0E0E0;
+    margin-top: 30px;
+}
+/* _____New code_____ */
 /* Home.css */
 *,
 *::before,
@@ -139,96 +269,143 @@ body {
     border-top: 1px solid #E0E0E0;
     margin-top: 30px;
 }
-/* _____New code_____ */
 
-
+/* Income Graph Specific Styles */
 .income-graph-container {
-    padding: 20px 0;
-  }
-  
-  .graph-header {
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    padding: 24px;
+    margin: 20px 0;
+}
+
+.graph-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 20px;
     flex-wrap: wrap;
-  }
-  
-  .graph-controls {
+}
+
+.graph-controls {
     display: flex;
-    gap: 20px;
-    flex-wrap: wrap;
-  }
-  
-  .month-selector {
+    gap: 16px;
+}
+
+/* Month and Week Filter Controls */
+.filter-controls, .view-controls, .month-selector {
     display: flex;
     flex-wrap: wrap;
     gap: 5px;
-  }
-  
-  .month-button {
-    padding: 6px 10px;
-    background-color: #f0f0f0;
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.filter-button, .view-button, .month-button {
+    padding: 8px 16px;
     border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: all 0.2s;
-  }
-  
-  .month-button.active {
-    background-color: #279AF1;
-    color: white;
-  }
-  
-  .view-button {
-    padding: 6px 12px;
     background-color: #f0f0f0;
-    border: none;
-    border-radius: 4px;
     cursor: pointer;
-    transition: all 0.2s;
-  }
-  
-  .view-button.active {
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.filter-button.active, .view-button.active, .month-button.active {
     background-color: #279AF1;
-    color: white;
-  }
-  
-  .monthly-summary {
-    margin-bottom: 20px;
+    color: #ffffff;
+}
+
+/* Summary Stats */
+.summary-stats, .monthly-summary {
     display: flex;
-    justify-content: center;
-  }
-  
-  .total-box {
+    justify-content: space-between;
+    margin: 20px 0;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+.stat-card, .total-box {
     background-color: #f8f8f8;
     border-radius: 8px;
-    padding: 15px 30px;
-    border-left: 4px solid #279AF1;
+    padding: 16px;
+    flex: 1;
+    min-width: 200px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
     display: flex;
     flex-direction: column;
     align-items: center;
-  }
-  
-  .total-label {
+}
+
+.total-box {
+    border-left: 4px solid #279AF1;
+}
+
+.stat-label, .total-label {
     font-size: 14px;
     color: #666;
-  }
-  
-  .total-amount {
+    margin-bottom: 6px;
+}
+
+.stat-value, .total-amount {
     font-size: 24px;
     font-weight: bold;
     color: #279AF1;
-  }
-  
-  .income-categories {
+}
+
+.goal-met {
+    color: #8CD867;
+}
+
+.goal-pending {
+    color: #F4B942;
+}
+
+/* Transaction List */
+.transaction-list {
+    margin-top: 30px;
+}
+
+.transaction-header {
+    display: grid;
+    grid-template-columns: 120px 1fr 120px;
+    padding: 12px 0;
+    border-bottom: 1px solid #eee;
+    font-weight: bold;
+    color: #666;
+}
+
+.transaction-item {
+    display: grid;
+    grid-template-columns: 120px 1fr 120px;
+    padding: 12px 0;
+    border-bottom: 1px solid #eee;
+    align-items: center;
+}
+
+.transaction-date {
+    color: #666;
+}
+
+.transaction-description {
+    font-weight: 500;
+}
+
+.transaction-amount {
+    font-weight: 500;
+    text-align: right;
+    color: #279AF1;
+}
+
+/* Category Display */
+.income-categories {
     display: flex;
     flex-wrap: wrap;
     gap: 15px;
     margin-top: 20px;
-  }
-  
-  .category-card {
+}
+
+.category-card {
     background-color: white;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.05);
@@ -237,25 +414,43 @@ body {
     align-items: center;
     flex: 1;
     min-width: 200px;
-  }
-  
-  .category-color {
+}
+
+.category-color {
     width: 20px;
     height: 20px;
     border-radius: 50%;
     margin-right: 12px;
-  }
-  
-  .category-info {
+}
+
+.category-info {
     display: flex;
     flex-direction: column;
-  }
-  
-  .category-name {
+}
+
+.category-name {
     font-weight: bold;
     margin-bottom: 4px;
-  }
-  
-  .category-amount {
+}
+
+.category-amount {
     color: #666;
-  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .graph-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .graph-controls {
+        margin-top: 12px;
+        width: 100%;
+        justify-content: space-between;
+    }
+    
+    .summary-stats, .monthly-summary {
+        flex-direction: column;
+    }
+}
