@@ -68,7 +68,6 @@ export default function Home() {
       
       <div className="content">
         <h1 className="header">Welcome to Your Income Tracker</h1>
-        <p>Visualize and manage your monthly income with ease.</p>
         <div id="income-graph">
           {/* Pass the transactions state to D3Graph */}
           <D3Graph transactions={transactions} />
