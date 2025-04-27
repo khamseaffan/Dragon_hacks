@@ -98,7 +98,7 @@ export default function Home() {
       {/* Main Content Area */}
       <div className="content">
         <h1 className="header">Gig Worker Dashboard</h1>
-        <p>Visualize your income, expenses, and budget.</p>
+
 
         {/* Grid for Charts and Budget */}
         <div className="dashboard-grid">
