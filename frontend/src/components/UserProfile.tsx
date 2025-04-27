@@ -1,4 +1,4 @@
-import { useState } from "react";
+
 import { useAuth0 } from "@auth0/auth0-react";
 import AuthButton from "./AuthButton";
 import { useNavigate } from "react-router-dom";
@@ -6,49 +6,8 @@ import "./UserProfile.css";
 
 export default function UserProfile() {
   const { user, isAuthenticated, isLoading } = useAuth0();
-  const [editing, setEditing] = useState(false);
   const navigate = useNavigate();
-  const [showPasswordForm, setShowPasswordForm] = useState(false);
-  const [currentPassword, setCurrentPassword] = useState("");
-  const [newPassword, setNewPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [passwordMessage, setPasswordMessage] = useState("");
-  const [passwordSuccess, setPasswordSuccess] = useState(false);
 
-  const handleChangePassword = async (e?: React.FormEvent) => {
-    if (e) e.preventDefault();
-    setPasswordMessage("");
-    setPasswordSuccess(false);
-    if (newPassword !== confirmPassword) {
-      setPasswordMessage("New passwords do not match.");
-      return;
-    }
-    try {
-      const res = await fetch("/api/change-password", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          current_password: currentPassword,
-          new_password: newPassword,
-        }),
-      });
-      if (res.ok) {
-        setPasswordMessage(
-          "Password changed successfully! Check your email for confirmation."
-        );
-        setPasswordSuccess(true);
-        setShowPasswordForm(false);
-        setCurrentPassword("");
-        setNewPassword("");
-        setConfirmPassword("");
-      } else {
-        const data = await res.json();
-        setPasswordMessage(data.message || "Failed to change password.");
-      }
-    } catch (err) {
-      setPasswordMessage("Error changing password.");
-    }
-  };
 
   if (isLoading) return <div>Loading...</div>;
   if (!isAuthenticated) return <div>Please log in to see your profile.</div>;
