@@ -1,0 +1,97 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+.landing-page {
+    font-family: Arial, sans-serif;
+    color: #333;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .landing-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 5%;
+    background-color: #279AF1;
+    color: white;
+  }
+  
+  .landing-logo {
+    width: 150px;
+    height: auto;
+    position: absolute;
+  }
+  
+  .landing-login-button {
+    background-color: white;
+    color: #279AF1;
+    border: none;
+    padding: 0.5rem 1.5rem;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
+  .landing-hero-section {
+    padding: 5rem 1rem;
+    text-align: center;
+    background: linear-gradient(to bottom, #F7F7FF, #E0E0FF);
+  }
+  
+  .landing-hero-title {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    color: #070600;
+  }
+  
+  .landing-hero-subtitle {
+    font-size: 1.4rem;
+    margin-bottom: 2rem;
+    color: #555;
+  }
+  
+  .landing-cta-button {
+    background-color: #279AF1;
+    color: white;
+    border: none;
+    padding: 0.8rem 2rem;
+    border-radius: 4px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
+  .landing-features-section {
+    padding: 4rem 5%;
+    background-color: white;
+  }
+  
+  .landing-team-section {
+    padding: 4rem 5%;
+    background-color: #F7F7FF;
+  }
+  
+  .landing-section-title {
+    font-size: 2.5rem;
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+  
+  .landing-section-subtitle {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    color: #279AF1;
+  }
+  
+  .landing-footer {
+    background-color: #070600;
+    color: white;
+    text-align: center;
+    padding: 1.5rem;
+    margin-top: auto;
+  }
