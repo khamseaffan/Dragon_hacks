@@ -7,9 +7,6 @@ export default function App() {
   return (
     <div className="App">
       <Home />
-      {/* <Login />
-      <Logout />
-      <UserProfile /> */}
     </div>
   )
 }
