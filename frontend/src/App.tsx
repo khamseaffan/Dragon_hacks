@@ -16,7 +16,8 @@ export default function App() {
       <Router>
         {isAuthenticated ? (
           <Routes>
-            <Route path="/" element={<Home />} />
+            <Route path="/" element={<LandingPage/>} />
+            <Route path="/home" element={<Home />} />
             <Route path="/account-settings" element={<UserProfile />} />
           </Routes>
         ) : (

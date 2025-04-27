@@ -96,12 +96,16 @@ export default function LandingPage() {
             style={{ height: '50px', marginRight: '10px'}} 
           />
         </div>
-        <button 
-          style={styles.loginButton}   
-          onClick={() => loginWithRedirect()}
-        >
-          Sign In/Up
-        </button>
+        {useAuth0().isAuthenticated ? (
+          <span>Welcome!</span>
+        ) : (
+          <button 
+            style={styles.loginButton}   
+            onClick={() => loginWithRedirect()}
+          >
+            Sign In/Up
+          </button>
+        )}
       </header>
 
       <main>

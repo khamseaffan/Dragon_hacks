@@ -4,7 +4,9 @@ import { usePlaidLink } from 'react-plaid-link';
 import { useAuth0 } from '@auth0/auth0-react';
 import axios from 'axios';
 // Import the custom transaction data
-import customTransactions from '../lib_dir/custom_hustler.json';
+const randomIndex = Math.floor(Math.random() * 4) + 1;
+// We'll load the JSON dynamically later
+let customTransactions: any[] = [];
 
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:8000';
 
@@ -70,13 +72,15 @@ const PlaidLinkButton: React.FC<PlaidLinkButtonProps> = ({ onTransactionsLoaded 
         });
         setItemId(response.data.item_id);
         setLinkToken(null);
-
         // --- Load custom transactions and call parent callback --- 
-        console.log("Loading custom transactions from local JSON file...");
+        console.log("Loading transactions from  response");
+        const module = await import(`../lib/custom_hustler_${randomIndex}.json`);
+        customTransactions = module.default || module;
         onTransactionsLoaded(customTransactions); // Call parent callback
         console.log('Loaded Custom Transactions:', customTransactions);
         console.log(`Total custom transactions: ${customTransactions.length}`);
         // --- End custom transaction loading ---
+        
 
       } catch (err: any) {
         console.error('Error exchanging public token:', err);
