@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
-import AuthButton from "./AuthButton"; // Assuming AuthButton handles login/logout
+import AuthButton from "./AuthButton"; // Assuming AuthButton handles login/logout. Need to actually add this to the account settings page. Also need to make a "back" button" that doesn't require someone swiping back on their trackpad or pressing the back button on their browser.
 
 export default function UserProfile() {
     const { user, isAuthenticated, isLoading } = useAuth0();
