@@ -32,7 +32,7 @@ export default function UserProfile() {
                     onClick={() => navigate("/")}
                     aria-label="Back to Home"
                 >
-                    <span className="profile-back-button__text">&#x2039;Back</span>
+                    <span className="profile-back-button__text">&#x2039; Back</span>
                 </button>
                 {user?.picture && (
                     <img src={user.picture} alt={user.name} className="profile-picture" />

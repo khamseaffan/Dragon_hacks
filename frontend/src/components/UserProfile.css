@@ -21,6 +21,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  position: relative;
 }
 
 .profile-picture {
@@ -91,35 +92,37 @@ body {
 
 .profile-back-button {
   position: absolute;
-  top: 16;
-  left: 16;
+  top: 16px;
+  left: 16px;
   display: flex;
   align-items: center;
   background: none;
   border: none;
-  color: #279AF1;
+  color: #279af1;
   font-weight: bold;
-  font-size: 22;
-  cursor: "pointer";
+  font-size: 1.1rem;
+  cursor: pointer;
   padding: 0;
+  transition: color 0.2s, background-color 0.2s;
+  box-shadow: none;
 }
-/* 
-                    style={{ position: "absolute", top: 16, left: 16, display: "flex", alignItems: "center", background: "none", border: "none", color: "#279AF1", fontWeight: "bold", fontSize: 22, cursor: "pointer", padding: 0 }}*/
+
 .profile-back-button__text {
-    font-size: 1.2rem;
-    font-weight: bold;
-    margin-right: 6px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-right: 6px;
 }
 
 .profile-back-button:hover {
   color: #1e7acb;
   background: none;
-  box-shadow: 0 4px 16px 0 rgba(39, 154, 241, 0.18);
+  box-shadow: none;
 }
 
 .profile-back-button__text:hover {
   color: #1e7acb;
-  box-shadow: 0 4px 16px 0 rgba(39, 154, 241, 0.18);
+  background: none;
+  box-shadow: none;
 }
 
 .profile-buttons .navbar--button,
