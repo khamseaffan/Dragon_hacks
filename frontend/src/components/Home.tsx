@@ -17,6 +17,7 @@ import {
   DailyActivity,
   Transaction, // <<< IMPORT the Transaction type
 } from "../lib_dir/transactionUtils"; // Adjust path if needed
+import D3Graph from "./D3Graph";
 
 // Remove the local RawTransaction type definition
 
