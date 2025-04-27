@@ -1,4 +1,3 @@
-
 # app/auth/verify.py
 # Handles Auth0 JWT verification.
 
@@ -13,22 +12,30 @@ from app.core.config import settings
 
 # --- Constants ---
 ALGORITHMS = ["RS256"]
-AUTH0_DOMAIN = settings.AUTH0_DOMAIN
-API_AUDIENCE = settings.AUTH0_API_AUDIENCE
-ISSUER = f"https://{AUTH0_DOMAIN}/"
-JWKS_URL = f"{ISSUER}.well-known/jwks.json"
+# Ensure Auth0 settings are loaded correctly
+AUTH0_DOMAIN = getattr(settings, 'AUTH0_DOMAIN', None)
+API_AUDIENCE = getattr(settings, 'AUTH0_API_AUDIENCE', None)
+
+if not AUTH0_DOMAIN or not API_AUDIENCE:
+    print("\033[91mERROR: AUTH0_DOMAIN or AUTH0_API_AUDIENCE not configured in settings! Token verification will fail.\033[0m")
+    # Optionally raise an error here to prevent startup without config
+    # raise ValueError("Auth0 Domain and API Audience must be configured")
+
+ISSUER = f"https://{AUTH0_DOMAIN}/" if AUTH0_DOMAIN else None
+JWKS_URL = f"{ISSUER}.well-known/jwks.json" if ISSUER else None
 
 # --- JWKS Caching ---
-# Cache JWKS for 10 minutes to avoid excessive requests
 jwks_cache = TTLCache(maxsize=1, ttl=600)
 
 # --- HTTP Bearer Scheme ---
-# Reusable HTTPBearer instance
 token_auth_scheme = HTTPBearer()
 
 # --- Helper Functions ---
 async def get_jwks() -> Dict[str, Any]:
     """Fetches JWKS from Auth0, using a cache."""
+    if not JWKS_URL:
+        raise HTTPException(status_code=500, detail="Auth0 configuration missing, cannot fetch JWKS.")
+
     cached_jwks = jwks_cache.get("jwks")
     if cached_jwks:
         return cached_jwks
@@ -36,44 +43,22 @@ async def get_jwks() -> Dict[str, Any]:
     async with httpx.AsyncClient() as client:
         try:
             response = await client.get(JWKS_URL)
-            response.raise_for_status() # Raise exception for 4XX/5XX responses
+            response.raise_for_status()
             jwks = response.json()
-            jwks_cache["jwks"] = jwks # Store in cache
+            jwks_cache["jwks"] = jwks
             return jwks
-        except httpx.RequestError as exc:
-            raise HTTPException(
-                status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
-                detail=f"Error requesting JWKS: {exc}"
-            )
-        except httpx.HTTPStatusError as exc:
-            raise HTTPException(
-                status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
-                detail=f"Error response from JWKS endpoint: {exc.response.status_code}"
-            )
-        except Exception as e: # Catch potential JSON decoding errors or others
-             raise HTTPException(
-                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-                detail=f"Failed to fetch or process JWKS: {e}"
-            )
-
+        except Exception as e:
+            print(f"Failed to fetch JWKS: {e}")
+            raise HTTPException(status_code=503, detail="Could not fetch JWKS from authentication provider.")
 
 # --- FastAPI Dependency ---
-async def verify_token(
-    token: HTTPAuthorizationCredentials = Depends(token_auth_scheme)
-) -> Dict[str, Any]:
+async def verify_token(token: HTTPAuthorizationCredentials = Depends(token_auth_scheme)) -> Dict[str, Any]:
     """
     FastAPI dependency to verify the Auth0 JWT token.
-
-    Args:
-        token: The HTTPAuthorizationCredentials containing the bearer token.
-
-    Returns:
-        The decoded token payload (claims) if valid.
-
-    Raises:
-        HTTPException: 401 Unauthorized for various token errors (missing, invalid, expired, etc.).
-                       503 Service Unavailable if JWKS cannot be fetched.
     """
+    if not AUTH0_DOMAIN or not API_AUDIENCE or not ISSUER:
+         raise HTTPException(status_code=500, detail="Auth0 configuration missing for token verification.")
+
     if token is None:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
@@ -94,8 +79,8 @@ async def verify_token(
         if "kid" not in unverified_header:
             raise credentials_exception
 
-        for key in jwks["keys"]:
-            if key["kid"] == unverified_header["kid"]:
+        for key in jwks.get("keys", []):
+            if key.get("kid") == unverified_header["kid"]:
                 rsa_key = {
                     "kty": key["kty"],
                     "kid": key["kid"],
@@ -103,47 +88,29 @@ async def verify_token(
                     "n": key["n"],
                     "e": key["e"]
                 }
-                break # Found the key
+                break
 
         if not rsa_key:
-            raise credentials_exception # Unable to find appropriate key
+            raise credentials_exception
 
         payload = jwt.decode(
             token.credentials,
             rsa_key,
             algorithms=ALGORITHMS,
-            audience=API_AUDIENCE,
-            issuer=ISSUER
+            audience=API_AUDIENCE, # Re-enable audience validation
+            issuer=ISSUER # Validate issuer
         )
         return payload
 
     except jose_exceptions.ExpiredSignatureError:
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Token has expired",
-            headers={"WWW-Authenticate": "Bearer"},
-        )
+        raise HTTPException(status_code=401, detail="Token has expired", headers={"WWW-Authenticate": "Bearer"})
     except jose_exceptions.JWTClaimsError:
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Incorrect claims, please check the audience and issuer",
-            headers={"WWW-Authenticate": "Bearer"},
-        )
+        raise HTTPException(status_code=401, detail="Incorrect claims, check audience/issuer", headers={"WWW-Authenticate": "Bearer"})
     except jose_exceptions.JWTError as e:
-        # Catch other JWT errors (e.g., invalid signature, format issues)
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail=f"Unable to parse authentication token: {e}",
-            headers={"WWW-Authenticate": "Bearer"},
-        )
+        raise HTTPException(status_code=401, detail=f"Token validation error: {e}", headers={"WWW-Authenticate": "Bearer"})
     except HTTPException as e:
-        # Re-raise HTTPExceptions from get_jwks or credential checks
-        raise e
+        raise e # Re-raise specific HTTP exceptions (like from get_jwks)
     except Exception as e:
-        # Catch any other unexpected errors during validation
-        print(f"Unexpected error during token verification: {e}") # Log for debugging
-        raise HTTPException(
-            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail="Internal server error during token validation",
-        )
+        print(f"Unexpected error during token verification: {e}")
+        raise HTTPException(status_code=500, detail="Internal server error during token validation")
 

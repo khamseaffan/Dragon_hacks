@@ -1,57 +1,35 @@
 import "./Home.css";
-import D3Graph from "./D3Graph.tsx";
-import { useNavigate } from "react-router-dom";
-import { useState } from "react";
-
-const buttonHoverStyle = {
-  backgroundColor: "#f0f0f0",
-  cursor: "pointer",
-};
+import D3Graph from "./D3Graph"; // Import the D3Graph component
+import PlaidLinkButton from "./PlaidLinkButton"; // Import the PlaidLinkButton
+import AuthButton from "./AuthButton"; // Assuming AuthButton handles login/logout
+import { useState } from "react"; // Import useState
 
 export default function Home() {
-  const [hovered, setHovered] = useState<number | null>(null);
-  const navigate = useNavigate();
+  // State to hold transactions, initialized as empty array
+  const [transactions, setTransactions] = useState<any[]>([]);
+
+  // Callback function for PlaidLinkButton to update transactions
+  const handleTransactionsLoaded = (loadedTransactions: any[]) => {
+    console.log("Home component received transactions:", loadedTransactions.length);
+    setTransactions(loadedTransactions);
+  };
 
   return (
     <div className="home">
       <div className="navbar">
-        <button
-          className="navbar--button"
-          style={hovered === 0 ? buttonHoverStyle : undefined}
-          onMouseEnter={() => setHovered(0)}
-          onMouseLeave={() => setHovered(null)}
-          onClick={() => {
-            /* Link Bank Account logic here */
-          }}
-        >
-          Link Bank Account
-        </button>
-        <button
-          className="navbar--button"
-          style={hovered === 1 ? buttonHoverStyle : undefined}
-          onMouseEnter={() => setHovered(1)}
-          onMouseLeave={() => setHovered(null)}
-          onClick={() => navigate("/account-settings")}
-        >
-          Account Settings
-        </button>
-        <button
-          className="navbar--button"
-          style={hovered === 2 ? buttonHoverStyle : undefined}
-          onMouseEnter={() => setHovered(2)}
-          onMouseLeave={() => setHovered(null)}
-          onClick={() => {
-            /* View Income Graph logic here */
-          }}
-        >
-          View Income Graph
-        </button>
+        {/* Use AuthButton for login/logout */}
+        <AuthButton />
+        {/* Pass the callback function to PlaidLinkButton */}
+        <PlaidLinkButton onTransactionsLoaded={handleTransactionsLoaded} />
+        <button className="navbar--button">Account Settings</button>
+        <button className="navbar--button">View Income Graph</button>
       </div>
       <div className="content">
         <h1 className="header">Welcome to Your Income Tracker</h1>
         <p>Visualize and manage your monthly income with ease.</p>
         <div id="income-graph">
-          <D3Graph />
+          {/* Pass the transactions state to D3Graph */}
+          <D3Graph transactions={transactions} />
         </div>
       </div>
     </div>

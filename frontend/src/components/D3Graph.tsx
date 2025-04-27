@@ -1,18 +1,35 @@
 import { useEffect, useRef } from "react";
 import * as d3 from "d3";
-import transactions from "../lib_dir/sample_transactions.json";
 
 type Transaction = {
   date: string;
   amount: number;
 };
 
-export default function D3Graph() {
+// Accept transactions as a prop
+interface D3GraphProps {
+  transactions: Transaction[];
+}
+
+export default function D3Graph({ transactions }: D3GraphProps) {
   const ref = useRef<SVGSVGElement | null>(null);
 
   useEffect(() => {
+    // Only draw if we have transactions data
+    if (!transactions || transactions.length === 0) {
+      // Optionally clear the SVG or show a placeholder message
+      d3.select(ref.current).selectAll("*").remove();
+      d3.select(ref.current)
+        .append("text")
+        .attr("x", 250)
+        .attr("y", 150)
+        .attr("text-anchor", "middle")
+        .text("Link account to see graph");
+      return;
+    }
+
     // Group by month string (YYYY-MM)
-    const data: Transaction[] = transactions as Transaction[];
+    const data: Transaction[] = transactions; // Use the prop directly
     const monthly = d3.rollups(
       data,
       v => d3.sum(v, d => d.amount),
@@ -94,7 +111,7 @@ export default function D3Graph() {
       .attr("cy", d => y(d.sum))
       .attr("r", 4)
       .attr("fill", "#279AF1");
-  }, []);
+  }, [transactions]);
 
   return <svg ref={ref} width={500} height={300} />;
 }
