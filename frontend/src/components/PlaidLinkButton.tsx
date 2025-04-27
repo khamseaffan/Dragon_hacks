@@ -74,7 +74,7 @@ const PlaidLinkButton: React.FC<PlaidLinkButtonProps> = ({ onTransactionsLoaded 
         setLinkToken(null);
         // --- Load custom transactions and call parent callback --- 
         console.log("Loading transactions from  response");
-        const module = await import(`../lib/custom_hustler_${randomIndex}.json`);
+        const module = await import(`../lib_dir/custom_hustler_${randomIndex}.json`);
         customTransactions = module.default || module;
         onTransactionsLoaded(customTransactions); // Call parent callback
         console.log('Loaded Custom Transactions:', customTransactions);

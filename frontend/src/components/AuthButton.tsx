@@ -1,6 +1,6 @@
 import { useAuth0 } from "@auth0/auth0-react";
 import axios from 'axios'; // Import axios for the logout call
-
+import './AuthButton.css'; 
 // Define backend URL (replace with your actual URL, possibly from env vars)
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || 'http://127.0.0.1:8000';
 
@@ -10,7 +10,6 @@ export default function AuthButton() {
     logout: auth0Logout, // Rename to avoid conflict if needed
     isAuthenticated,
     isLoading,
-    user
   } = useAuth0();
 
   // Handler for backend logout
@@ -39,11 +38,11 @@ export default function AuthButton() {
   }
 
   return isAuthenticated ? (
-    <button onClick={handleLogout}>
-      Log out ({user?.name || 'user'})
+    <button className="auth-button" onClick={handleLogout}>
+      Log out
     </button>
   ) : (
-    <button onClick={() => loginWithRedirect()}>
+    <button className="auth-button" onClick={() => loginWithRedirect()}>
       Log in
     </button>
   );

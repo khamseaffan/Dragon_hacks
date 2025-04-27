@@ -103,7 +103,7 @@ const IncomeGraph: React.FC<IncomeGraphProps> = ({ transactions, monthlyIncomeGo
   const totalIncome = graphData.reduce((sum, item) => sum + item.income, 0);
   
   // Calculate daily goal based on monthly goal
-  const dailyGoal = monthlyIncomeGoal / 30;
+  // const dailyGoal = monthlyIncomeGoal / 30;
   
   // Format currency
   const formatCurrency = (value: number) => {

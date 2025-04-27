@@ -87,8 +87,11 @@
 //   );
 // }
 import "./Home.css";
-import MonthlyIncomeGraph from "./MonthlyIncomeGraph";
-import { useAuth0 } from "@auth0/auth0-react";
+import { useNavigate } from "react-router-dom"; // Import useNavigate
+import PlaidLinkButton from "./PlaidLinkButton";
+import D3Graph from "./D3Graph";
+import { useState, useEffect, useCallback } from "react"; // Import useEffect, useCallback
+import BudgetTrackerCard from "./BudgetTrackerCard"; // Import the new card
 
 export default function Home() {
   const { isAuthenticated, loginWithRedirect } = useAuth0();
@@ -96,17 +99,8 @@ export default function Home() {
   return (
     <div className="home">
       <div className="navbar">
-        <button className="navbar--button">Link Bank Account</button>
-        <button className="navbar--button">Account Settings</button>
-        <button className="navbar--button">View Income Graph</button>
-        {!isAuthenticated && (
-          <button 
-            className="navbar--button login-button" 
-            onClick={() => loginWithRedirect()}
-          >
-            Log In
-          </button>
-        )}
+        <PlaidLinkButton onTransactionsLoaded={handleTransactionsLoaded} />
+        <button className="navbar--button" onClick={() => navigate("/account-settings")}>Account Settings</button>
       </div>
       
       <div className="content">
