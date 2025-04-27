@@ -1,3 +1,4 @@
+// to do -- verify if this is fully done, especially the return statement of the component. I just closed the tags for everything that was left open when I git pulled, and Copilot autocompleted some stuff before that.
 import React, { useState, useEffect } from 'react';
 import {
   LineChart,
@@ -189,4 +190,30 @@ const IncomeGraph: React.FC<IncomeGraphProps> = ({ transactions, monthlyIncomeGo
           ) : (
             <LineChart data={graphData} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
               <CartesianGrid strokeDasharray="3 3" />
-              <XAxis data
+              <XAxis dataKey="date" />
+              <YAxis />
+              <Tooltip 
+                formatter={(value) => [formatCurrency(value as number), 'Income']} 
+                labelFormatter={(label) => `Date: ${label}`}
+              />
+              <Legend />
+              <Line type="monotone" dataKey="income" stroke="#279AF1" name="Income" />
+              {filterType === 'month' ? (
+                <ReferenceLine y={monthlyIncomeGoal} stroke="#8CD867" strokeDasharray="3 3" label="Monthly Goal" />
+              ) : (
+                <ReferenceLine y={monthlyIncomeGoal / 4} stroke="#8CD867" strokeDasharray="3 3" label="Weekly Goal" />
+              )}
+            </LineChart>
+          )}
+          </ResponsiveContainer>
+        </div>
+      </div>
+
+  
+  );
+}
+export default IncomeGraph;
+
+        
+
+            

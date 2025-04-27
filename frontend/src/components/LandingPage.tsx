@@ -1,6 +1,6 @@
 import { useAuth0 } from "@auth0/auth0-react";
 import "./LandingPage.css"; // Keep this import
-
+import logo from "../lib_dir/logo.png"; // Adjust the path as necessary
 export default function LandingPage() {
   const { loginWithRedirect } = useAuth0();
 
@@ -89,13 +89,23 @@ export default function LandingPage() {
   return (
     <div style={styles.page}>
       <header style={styles.header}>
-        <div style={styles.logo}>Income Hustlers</div>
-        <button 
-          style={styles.loginButton} 
-          onClick={() => loginWithRedirect()}
-        >
-          Sign In
-        </button>
+        <div style={{ display: 'flex', alignItems: 'center' }}>
+          <img 
+            src={logo}
+            alt="Logo" 
+            style={{ height: '50px', marginRight: '10px'}} 
+          />
+        </div>
+        {useAuth0().isAuthenticated ? (
+          <span>Welcome!</span>
+        ) : (
+          <button 
+            style={styles.loginButton}   
+            onClick={() => loginWithRedirect()}
+          >
+            Sign In/Up
+          </button>
+        )}
       </header>
 
       <main>
@@ -127,11 +137,9 @@ export default function LandingPage() {
         <section style={styles.teamSection}>
           <h2 style={styles.h2}>Meet the Team</h2>
           <div>
-            <h3 style={styles.h3}>ALI</h3>
-            <p>Frontend Developer</p>
-            
+            <h3 style={styles.h3}>Ali </h3>
             <h3 style={styles.h3}>Affan</h3>
-            <p>Backend Developer</p>
+            <h3 style={styles.h3}>Muhammad Abdulrehman</h3>
           </div>
         </section>
       </main>
