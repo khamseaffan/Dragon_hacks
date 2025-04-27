@@ -92,7 +92,7 @@ export default function Home() {
       {/* Navbar Section */}
       <div className="navbar">
         <PlaidLinkButton onTransactionsLoaded={handleTransactionsLoaded} />
-        {/* <button className="navbar--button" onClick={() => navigate("/account-settings")}>Account Settings</button> */}
+        <button className="navbar--button" onClick={() => navigate("/account-settings")}>Account Settings</button>
       </div>
 
       {/* Main Content Area */}
