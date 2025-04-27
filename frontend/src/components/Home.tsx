@@ -1,5 +1,5 @@
 import "./Home.css";
-import { buttonStyle } from "../lib/common.ts";
+import { buttonStyle } from "../lib_dir/common.ts";
 import D3Graph from "./D3Graph.tsx"; 
 
 export default function Home() {
