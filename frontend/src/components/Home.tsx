@@ -1,7 +1,6 @@
 import "./Home.css";
 import { useNavigate } from "react-router-dom"; // Import useNavigate
 import PlaidLinkButton from "./PlaidLinkButton";
-import AuthButton from "./AuthButton";
 import D3Graph from "./D3Graph";
 import { useState, useEffect, useCallback } from "react"; // Import useEffect, useCallback
 import BudgetTrackerCard from "./BudgetTrackerCard"; // Import the new card
@@ -63,7 +62,6 @@ export default function Home() {
   return (
     <div className="home">
       <div className="navbar">
-        <AuthButton />
         <PlaidLinkButton onTransactionsLoaded={handleTransactionsLoaded} />
         <button className="navbar--button" onClick={() => navigate("/account-settings")}>Account Settings</button>
         <button className="navbar--button">View Income Graph</button>
