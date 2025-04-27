@@ -92,54 +92,23 @@ export default function Home() {
       {/* Navbar Section */}
       <div className="navbar">
         <PlaidLinkButton onTransactionsLoaded={handleTransactionsLoaded} />
-        {/* <button className="navbar--button" onClick={() => navigate("/account-settings")}>Account Settings</button> */}
+        <button className="navbar--button" onClick={() => navigate("/account-settings")}>Account Settings</button>
       </div>
 
       {/* Main Content Area */}
       <div className="content">
-        <h1 className="header">Gig Worker Dashboard</h1>
-        <p>Visualize your income, expenses, and budget.</p>
-
-        {/* Grid for Charts and Budget */}
-        <div className="dashboard-grid">
-
-          {/* Budget Tracker Card */}
-          <div className="grid-item budget-item">
-            <BudgetTrackerCard
-              budgetLimits={budgetLimits}
-              calculatedSpending={calculatedSpending}
-              onSetBudgetLimit={handleSetBudgetLimit}
-            />
-          </div>
-
-          {/* Monthly Income/Expense Chart */}
-          <div className="grid-item chart-item">
-            <h2 className="chart-title">Monthly Income vs. Expense</h2>
-            <MonthlyBarChart data={monthlyData} />
-          </div>
-
-          {/* Income Sources Donut Chart */}
-          <div className="grid-item chart-item">
-            <h2 className="chart-title">Income Sources</h2>
-            <CategoryDonutChart data={incomeCategoryData} title="Income" />
-          </div>
-
-          {/* Expense Categories Bar Chart */}
-          <div className="grid-item chart-item">
-             <h2 className="chart-title">Expense Categories</h2>
-             <ExpenseBarChart data={expenseCategoryData} />
-          </div>
-
-          {/* Calendar Heatmap */}
-          <div className="grid-item chart-item full-width-item">
-             <h2 className="chart-title">Daily Activity (Net Amount)</h2>
-             <CalendarHeatmapChart dailyMap={dailyActivityData} metric="netAmount" />
-             {/* <h2 className="chart-title">Daily Income</h2> */}
-             {/* <CalendarHeatmapChart dailyMap={dailyActivityData} metric="income" /> */}
-          </div>
-
-        </div> {/* End dashboard-grid */}
-      </div> {/* End content */}
-    </div> // End home
+        <h1 className="header">Welcome to Your Income Tracker</h1>
+        <div id="income-graph">
+          {/* Pass the transactions state to D3Graph */}
+          <D3Graph transactions={transactions} />
+        </div>
+      </div>
+      {/* Render the BudgetTrackerCard, passing state and handlers */}
+      <BudgetTrackerCard 
+        budgetLimits={budgetLimits}
+        calculatedSpending={calculatedSpending}
+        onSetBudgetLimit={handleSetBudgetLimit}
+      />
+    </div>
   );
 }

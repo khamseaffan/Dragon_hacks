@@ -3,14 +3,19 @@ import Home from "./components/Home.tsx";
 import UserProfile from "./components/UserProfile.tsx";
 import LandingPage from "./components/LandingPage.tsx";
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+//import { useState } from "react";
 
 export default function App() {
-  const { isAuthenticated, isLoading } = useAuth0();
-
-  if (isLoading) {
-    return <div className="loading">Loading...</div>;
-  }
-
+  // State to hold transactions, initialized as empty array
+  //const [transactions, setTransactions] = useState<any[]>([]);
+  const { isAuthenticated } = useAuth0();
+  
+  // Callback function for PlaidLinkButton to update transactions
+  // const handleTransactionsLoaded = (loadedTransactions: any[]) => {
+  //   console.log("Home component received transactions:", loadedTransactions.length);
+  //   setTransactions(loadedTransactions);
+  // };
+  
   return (
     <div className="App">
       {isAuthenticated ? (

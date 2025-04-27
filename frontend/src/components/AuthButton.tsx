@@ -10,7 +10,6 @@ export default function AuthButton() {
     logout: auth0Logout, // Rename to avoid conflict if needed
     isAuthenticated,
     isLoading,
-    user
   } = useAuth0();
 
   // Handler for backend logout
