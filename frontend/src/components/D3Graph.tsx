@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 import * as d3 from "d3";
-import transactions from "../lib/sample_transactions.json";
+import transactions from "../lib_dir/sample_transactions.json";
 
 type Transaction = {
   date: string;

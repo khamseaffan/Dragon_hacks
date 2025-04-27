@@ -1,5 +1,5 @@
 import { useAuth0 } from "@auth0/auth0-react";
-import { buttonStyle } from "../lib/common.ts";
+import { buttonStyle } from "../lib_dir/common.ts";
 
 export default function Login() {
   const { loginWithRedirect, user } = useAuth0();
