@@ -12,12 +12,14 @@
   "dependencies": {
     "@auth0/auth0-react": "^2.3.0",
     "axios": "^1.9.0",
+    "d3": "^7.9.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.22.0",
     "@types/axios": "^0.9.36",
+    "@types/d3": "^7.4.3",
     "@types/react": "^19.0.10",
     "@types/react-dom": "^19.0.4",
     "@vitejs/plugin-react": "^4.3.4",
