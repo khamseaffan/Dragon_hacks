@@ -1,20 +1,8 @@
-// import Login from "./components/Login.tsx";
-// import Logout from "./components/Logout.tsx";
-// import UserProfile from "./components/UserProfile.tsx";
-// import Home from "./components/Home.tsx";
-
-// export default function App() {
-//   return (
-//     <div className="App">
-//       <Home />
-//     </div>
-//   )
-// }
-
-// --------new code 
 import { useAuth0 } from "@auth0/auth0-react";
 import Home from "./components/Home.tsx";
 import LandingPage from "./components/LandingPage.tsx";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import UserProfile from "./components/UserProfile.tsx";
 
 export default function App() {
   const { isAuthenticated, isLoading } = useAuth0();
@@ -23,9 +11,18 @@ export default function App() {
     return <div className="loading">Loading...</div>;
   }
 
+  const HomeRouter = () => (
+    <Router>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/account-settings" element={<UserProfile />} />
+      </Routes>
+    </Router>
+  );
+
   return (
     <div className="App">
-      {isAuthenticated ? <Home /> : <LandingPage />}
+      {isAuthenticated ? <HomeRouter /> : <LandingPage />}
     </div>
   );
 }

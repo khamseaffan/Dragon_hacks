@@ -15,6 +15,7 @@
     "d3": "^7.9.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "react-router-dom": "^7.5.2",
     "recharts": "^2.15.3"
   },
   "devDependencies": {
@@ -23,6 +24,7 @@
     "@types/d3": "^7.4.3",
     "@types/react": "^19.0.10",
     "@types/react-dom": "^19.0.4",
+    "@types/react-router-dom": "^5.3.3",
     "@types/recharts": "^1.8.29",
     "@vitejs/plugin-react": "^4.3.4",
     "eslint": "^9.22.0",
