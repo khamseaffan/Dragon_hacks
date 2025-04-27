@@ -1,14 +1,13 @@
 import "./Home.css";
-import { buttonStyle } from "../lib_dir/common.ts";
 import D3Graph from "./D3Graph.tsx"; 
 
 export default function Home() {
   return (
     <div className="home">
       <div className="navbar">
-      <button style={buttonStyle}>Link Bank Account</button>
-      <button style={buttonStyle}>Account Settings</button>
-      <button style={buttonStyle}>View Income Graph</button>
+      <button className="navbar--button">Link Bank Account</button>
+      <button className="navbar--button">Account Settings</button>
+      <button className="navbar--button">View Income Graph</button>
       </div>
       <div className="content">
       <h1 className="header">Welcome to Your Income Tracker</h1>

@@ -1,12 +1,13 @@
 import { useAuth0 } from "@auth0/auth0-react";
-import { buttonStyle } from "../lib_dir/common.ts";
+import "./Loginout.css";
+
 
 export default function Login() {
   const { loginWithRedirect, user } = useAuth0();
 
   return (
     <button
-      style={buttonStyle}
+      className="navbar--button"
       onClick={() => {
         loginWithRedirect();
         console.log("Logged in with username " + (user?.name || "unknown user"));
