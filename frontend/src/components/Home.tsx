@@ -64,7 +64,6 @@ export default function Home() {
       <div className="navbar">
         <PlaidLinkButton onTransactionsLoaded={handleTransactionsLoaded} />
         <button className="navbar--button" onClick={() => navigate("/account-settings")}>Account Settings</button>
-        <button className="navbar--button">View Income Graph</button>
       </div>
       
       <div className="content">
