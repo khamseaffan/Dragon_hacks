@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
+import AuthButton from "./AuthButton"; // Assuming AuthButton handles login/logout
 
 export default function UserProfile() {
     const { user, isAuthenticated, isLoading } = useAuth0();

@@ -1,12 +1,13 @@
 import "./Home.css";
 import D3Graph from "./D3Graph"; // Import the D3Graph component
 import PlaidLinkButton from "./PlaidLinkButton"; // Import the PlaidLinkButton
-import AuthButton from "./AuthButton"; // Assuming AuthButton handles login/logout
 import { useState } from "react"; // Import useState
+import { useNavigate } from "react-router-dom"; // Import useNavigate
 
 export default function Home() {
   // State to hold transactions, initialized as empty array
   const [transactions, setTransactions] = useState<any[]>([]);
+  const navigate = useNavigate();
 
   // Callback function for PlaidLinkButton to update transactions
   const handleTransactionsLoaded = (loadedTransactions: any[]) => {
@@ -17,11 +18,9 @@ export default function Home() {
   return (
     <div className="home">
       <div className="navbar">
-        {/* Use AuthButton for login/logout */}
-        <AuthButton />
         {/* Pass the callback function to PlaidLinkButton */}
         <PlaidLinkButton onTransactionsLoaded={handleTransactionsLoaded} />
-        <button className="navbar--button">Account Settings</button>
+        <button className="navbar--button" onClick={() => navigate("/account-settings")}>Account Settings</button>
         <button className="navbar--button">View Income Graph</button>
       </div>
       <div className="content">

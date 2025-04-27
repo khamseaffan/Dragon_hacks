@@ -4,7 +4,7 @@ import { usePlaidLink } from 'react-plaid-link';
 import { useAuth0 } from '@auth0/auth0-react';
 import axios from 'axios';
 // Import the custom transaction data
-import customTransactions from '../lib/custom_hustler.json';
+import customTransactions from '../lib_dir/custom_hustler.json';
 
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:8000';
 
@@ -31,7 +31,11 @@ const PlaidLinkButton: React.FC<PlaidLinkButtonProps> = ({ onTransactionsLoaded 
     setError(null);
 
     try {
-      const response = await axios.post(`${BACKEND_URL}/api/v1/plaid/create_link_token`, {
+      interface CreateLinkTokenResponse {
+        link_token: string;
+      }
+
+      const response = await axios.post<CreateLinkTokenResponse>(`${BACKEND_URL}/api/v1/plaid/create_link_token`, {
         user_id: user.sub,
       });
       setLinkToken(response.data.link_token);
@@ -56,7 +60,11 @@ const PlaidLinkButton: React.FC<PlaidLinkButtonProps> = ({ onTransactionsLoaded 
       setError(null);
 
       try {
-        const response = await axios.post(`${BACKEND_URL}/api/v1/plaid/exchange_public_token`, {
+        interface ExchangePublicTokenResponse {
+          item_id: string;
+        }
+
+        const response = await axios.post<ExchangePublicTokenResponse>(`${BACKEND_URL}/api/v1/plaid/exchange_public_token`, {
           public_token: publicToken,
           user_id: user.sub,
         });
