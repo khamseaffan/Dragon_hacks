@@ -4,7 +4,7 @@ import { usePlaidLink } from 'react-plaid-link';
 import { useAuth0 } from '@auth0/auth0-react';
 import axios from 'axios';
 // Import the custom transaction data
-import customTransactions from '../lib/custom_hustler.json';
+import customTransactions from '../lib_dir/custom_hustler.json';
 
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:8000';
 
@@ -130,3 +130,6 @@ const PlaidLinkButton: React.FC<PlaidLinkButtonProps> = ({ onTransactionsLoaded 
 };
 
 export default PlaidLinkButton;
+
+
+// trying to fix the plaid lin3
