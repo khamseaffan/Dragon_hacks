@@ -1,5 +1,6 @@
 import "./Home.css";
 import D3Graph from "./D3Graph.tsx"; 
+// import IncomeGraph from "./IncomeGraph.tsx";
 
 export default function Home() {
   return (
@@ -19,5 +20,4 @@ export default function Home() {
     </div>
   );
 }
-
 

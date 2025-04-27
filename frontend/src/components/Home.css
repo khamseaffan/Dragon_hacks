@@ -1,3 +1,4 @@
+/* _____New code_____ */
 /* Home.css */
 *,
 *::before,
@@ -11,8 +12,6 @@ body {
     background-color: #F7F7FF;
     color: #070600;
 }
-
-
 
 .home {
     max-width: 1200px;
@@ -45,7 +44,7 @@ body {
 .navbar--button {
     background-color: #279AF1;
     color: #FFFFFF;
-    border: 'none';
+    border: none;
     border-radius: 5px;
     padding: 10px 18px;
     font-size: 1rem;
@@ -53,52 +52,9 @@ body {
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
+
 .navbar--button:hover {
     background-color: #1E7ACB;
-}
-
-.card {
-    background-color: #FFFFFF;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    margin: 20px 0;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
-}
-
-.card-title {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: #070600;
-    margin-bottom: 10px;
-}
-
-.card-description {
-    font-size: 1rem;
-    color: #070600;
-    line-height: 1.5;
-}
-
-.status {
-    display: inline-block;
-    padding: 5px 10px;
-    border-radius: 5px;
-    font-size: 0.9rem;
-    font-weight: bold;
-    color: #FFFFFF;
-}
-
-.status-green {
-    background-color: #8CD867;
-}
-
-.status-red {
-    background-color: #EA526F;
 }
 
 .content {
@@ -114,6 +70,8 @@ body {
     background: #F0F4F8;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+    /* display: flex; 
+    flex-direction: row;   */
 }
 
 .button {
@@ -139,4 +97,189 @@ body {
     color: #070600;
     border-top: 1px solid #E0E0E0;
     margin-top: 30px;
+}
+
+/* Income Graph Specific Styles */
+.income-graph-container {
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    padding: 24px;
+    margin: 20px 0;
+}
+
+.graph-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.graph-controls {
+    display: flex;
+    gap: 16px;
+}
+
+/* Month and Week Filter Controls */
+.filter-controls, .view-controls, .month-selector {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.filter-button, .view-button, .month-button {
+    padding: 8px 16px;
+    border: none;
+    background-color: #f0f0f0;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.filter-button.active, .view-button.active, .month-button.active {
+    background-color: #279AF1;
+    color: #ffffff;
+}
+
+/* Summary Stats */
+.summary-stats, .monthly-summary {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px 0;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+.stat-card, .total-box {
+    background-color: #f8f8f8;
+    border-radius: 8px;
+    padding: 16px;
+    flex: 1;
+    min-width: 200px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.total-box {
+    border-left: 4px solid #279AF1;
+}
+
+.stat-label, .total-label {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 6px;
+}
+
+.stat-value, .total-amount {
+    font-size: 24px;
+    font-weight: bold;
+    color: #279AF1;
+}
+
+.goal-met {
+    color: #8CD867;
+}
+
+.goal-pending {
+    color: #F4B942;
+}
+
+/* Transaction List */
+.transaction-list {
+    margin-top: 30px;
+}
+
+.transaction-header {
+    display: grid;
+    grid-template-columns: 120px 1fr 120px;
+    padding: 12px 0;
+    border-bottom: 1px solid #eee;
+    font-weight: bold;
+    color: #666;
+}
+
+.transaction-item {
+    display: grid;
+    grid-template-columns: 120px 1fr 120px;
+    padding: 12px 0;
+    border-bottom: 1px solid #eee;
+    align-items: center;
+}
+
+.transaction-date {
+    color: #666;
+}
+
+.transaction-description {
+    font-weight: 500;
+}
+
+.transaction-amount {
+    font-weight: 500;
+    text-align: right;
+    color: #279AF1;
+}
+
+/* Category Display */
+.income-categories {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.category-card {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    flex: 1;
+    min-width: 200px;
+}
+
+.category-color {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    margin-right: 12px;
+}
+
+.category-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.category-name {
+    font-weight: bold;
+    margin-bottom: 4px;
+}
+
+.category-amount {
+    color: #666;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .graph-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .graph-controls {
+        margin-top: 12px;
+        width: 100%;
+        justify-content: space-between;
+    }
+    
+    .summary-stats, .monthly-summary {
+        flex-direction: column;
+    }
 }
