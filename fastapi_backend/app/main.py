@@ -7,7 +7,7 @@ from app.db.database import init_db
 from app.core.config import settings # Import settings if needed elsewhere, e.g., for CORS origins
 # Import routers
 # from app.routers import auth, plaid, budgets
-from app.routers import protected, users # Import the users router
+from app.routers import users, plaid  # Import the users and Plaid routers
 
 # Lifespan context manager for startup/shutdown events
 @asynccontextmanager
@@ -29,26 +29,27 @@ app = FastAPI(
 
 # --- Middleware ---
 # Example: CORS Middleware (adjust origins as needed)
-# from fastapi.middleware.cors import CORSMiddleware
+from fastapi.middleware.cors import CORSMiddleware
 # origins = [
 #     "http://localhost:3000", # Example frontend URL
 #     # Add other allowed origins
 # ]
-# app.add_middleware(
-#     CORSMiddleware,
-#     allow_origins=origins,
-#     allow_credentials=True,
-#     allow_methods=["*"],
-#     allow_headers=["*"],
-# )
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:5173", "http://localhost:5174"],  # Add your frontend URL here
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # --- Routers ---
 # Include routers from the app/routers directory
 # app.include_router(auth.router, prefix="/auth", tags=["Authentication"])
-app.include_router(users.router) # Add the users router (prefix is defined in the router itself)
-# app.include_router(plaid.router, prefix="/plaid", tags=["Plaid"])
+app.include_router(users.router)  # Add the users router (prefix is defined in the router itself)
+# Mount Plaid endpoints under /api/v1/plaid
+app.include_router(plaid.router, prefix="/api/v1/plaid", tags=["Plaid"])
 # app.include_router(budgets.router, prefix="/budgets", tags=["Budgets"])
-app.include_router(protected.router, prefix="/api/v1", tags=["Protected"]) # Add the protected router
+# app.include_router(protected.router, prefix="/api/v1", tags=["Protected"]) # Keep commented out or remove
 
 # --- Root Endpoint ---
 @app.get("/")

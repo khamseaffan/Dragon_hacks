@@ -8,6 +8,6 @@ requests
 httpx # Preferred for async JWKS fetching
 cachetools # For caching JWKS
 pymongo
+plaid-python==19.0.0 # Pin Plaid client library version
 # httpx # Uncomment if using async Plaid calls
-# plaid-python # Add later if needed
 # auth0-python # Add later if needed
